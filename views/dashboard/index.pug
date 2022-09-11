@@ -5,6 +5,8 @@ block content
     h2 Support Tickets
     p.lead
       | This is the list of most recent support tickets. Click the "Call customer" button to start a phone call from your browser.
+   
+   
     .row
       .col-md-4.col-md-push-8
         .panel.panel-primary.client-controls
@@ -17,7 +19,7 @@ block content
               | Connecting to Twilio...
             button.btn.btn-lg.btn-success.answer-button(disabled="") Answer call
             button.btn.btn-lg.btn-danger.hangup-button(disabled="", onclick="hangUp()") Hang up
-      .col-md-8.col-md-pull-4
+      .col-md-4.col-md-pull-4
         each ticket in tickets
           .panel.panel-default
             .panel-heading

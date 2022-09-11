@@ -9,7 +9,8 @@ var answerButton = $(".answer-button");
 var callSupportButton = $(".call-support-button");
 var hangUpButton = $(".hangup-button");
 var callCustomerButtons = $(".call-customer-button");
-
+var myTwilio;
+var device;
 /* Helper function to update the call status bar */
 function updateCallStatus(status) {
   callStatus.text(status);
@@ -96,6 +97,7 @@ $(document).ready(function() {
     });
 
   initNewTicketForm();
+  createUser()
 });
 
 /* Call a customer from a support ticket */
@@ -104,6 +106,10 @@ function callCustomer(phoneNumber) {
 
   var params = {"phoneNumber": phoneNumber};
   device.connect(params);
+}
+
+function selectedTwilio(twilio) {
+  myTwilio = twilio;
 }
 
 /* Call the support_agent from the home page */
@@ -134,6 +140,27 @@ function initNewTicketForm() {
       showNotification("Support ticket was created successfully.", "success")
       // clear form
       formEl.find("input[type=text], textarea").val("");
+    })
+    .fail(function(res) {
+      showNotification("Support ticket request failed. " + res.responseText, "danger")
+    });
+  });
+}
+
+function createUser() {
+  const formEl = $(".new-user");
+  console.log('browser-calls.js - Line 146 - ', 'huhuhu');
+  // button handler
+  formEl.find("[type='button']").click(function(e) {
+    $.ajax({
+        url: '/users/new',
+        type: 'post',
+        data: formEl.serialize()
+    })
+    .done(function(){
+      showNotification("Support ticket was created successfully.", "success")
+      // clear form
+      formEl.find("input[type=text]").val("");
     })
     .fail(function(res) {
       showNotification("Support ticket request failed. " + res.responseText, "danger")

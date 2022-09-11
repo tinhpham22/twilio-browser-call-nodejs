@@ -9,7 +9,7 @@ const config = require('../config');
 // GET /token/generate
 router.post('/generate', function (req, res) {
   const page = req.body.page;
-  const clientName = (page == "/dashboard"? "support_agent" : "customer");
+  const clientName = (page == "/dashboard"? "tinhpv" : "customer");
 
   const accessToken = new AccessToken(config.accountSid, config.apiKey, config.apiSecret);
   accessToken.identity = clientName;

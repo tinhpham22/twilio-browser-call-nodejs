@@ -5,17 +5,28 @@ const VoiceResponse = twilio.twiml.VoiceResponse;
 
 const config = require('../config');
 
+router.post('/haha', twilio.webhook({ validate: false }), function (req, res, next) {
+  const twiml = new VoiceResponse();
+  const dial = twiml.dial('');
+  const client = dial.client();
+  client.identity('tinhpv');
+  console.log('call.js - Line 8 - ', 'zooo hahahahahahahah', req);
+  res.send(twiml.toString());
+})
+
 // POST /calls/connect
-router.post('/connect', twilio.webhook({validate: false}), function(req, res, next) {
+router.post('/connect', twilio.webhook({ validate: false }), function (req, res, next) {
   var phoneNumber = req.body.phoneNumber;
   var callerId = config.twilioPhoneNumber;
   var twiml = new VoiceResponse();
 
-  var dial = twiml.dial({callerId : callerId});
+  console.log('call.js - Line 13 - ', req.body);
+  console.log('call.js - Line 14 - ', callerId);
+  var dial = twiml.dial({ callerId: callerId });
   if (phoneNumber) {
     dial.number({}, phoneNumber);
   } else {
-    dial.client({}, "support_agent");
+    dial.client({}, "tinhpv");
   }
 
   res.send(twiml.toString());

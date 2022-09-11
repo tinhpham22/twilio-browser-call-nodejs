@@ -1,10 +1,9 @@
 const express = require('express');
-const { LstTwilio } = require('../public/data');
 const router = express.Router();
 
-/* GET home page. */
+// GET /user
 router.get('/', function(req, res, next) {
-  res.render('home/index', {lstTwilio: LstTwilio});
+  res.render('users/index');
 });
 
 module.exports = router;
